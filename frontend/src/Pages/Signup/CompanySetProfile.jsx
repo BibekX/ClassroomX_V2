@@ -1,24 +1,24 @@
 import React, { useState, useRef } from "react";
 import {
   Container,
-  Avatar,
   Box,
   TextField,
   Button,
   Link,
   IconButton,
+  CardMedia,
 } from "@mui/material";
-import DefaultProfile from "../../img/profile/default.png";
+import Banner from "../../img/profile/banner.jpg";
 
-export default function ProfileSetup() {
-  const [avatar, setAvatar] = useState(DefaultProfile);
+export default function CompanySetProfile() {
+  const [avatar, setAvatar] = useState(Banner);
   const inputRef = useRef();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -29,7 +29,12 @@ export default function ProfileSetup() {
             inputRef.current.click();
           }}
         >
-          <Avatar alt="profile" src={avatar} sx={{ width: 150, height: 150 }} />
+          <CardMedia
+            component="img"
+            sx={{ height: 200, maxWidth: 350 }}
+            image={avatar}
+            alt="company banner"
+          />
         </IconButton>
         <Link
           href="#"
@@ -39,7 +44,7 @@ export default function ProfileSetup() {
             inputRef.current.click();
           }}
         >
-          Add Picture
+          Add Company Banner
         </Link>
         <input
           type="file"
@@ -54,23 +59,23 @@ export default function ProfileSetup() {
           margin="normal"
           required
           fullWidth
-          id="fname"
-          label="First Name"
-          name="fname"
+          id="name"
+          label="Company Name"
+          name="name"
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          id="url"
+          label="Website URL"
+          name="url"
         />
         <TextField
           margin="normal"
           required
           fullWidth
-          id="lname"
-          label="Last Name"
-          name="lname"
-        />
-        <TextField
-          margin="normal"
-          fullWidth
           id="bio"
-          label="Tell me something about yourself..."
+          label="Company Overview"
           name="bio"
           multiline
           rows={7}

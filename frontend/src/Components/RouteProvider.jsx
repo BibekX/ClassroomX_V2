@@ -2,16 +2,20 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../Pages/Home";
 import SignUp from "../Pages/Signup/Signup";
-import ProfileSetup from "../Pages/Signup/ProfileSetup";
-import Login from "../Pages/Login/Login";
+import SetProfile from "../Pages/Signup/SetProfile";
+import CompanySetProfile from "../Pages/Signup/CompanySetProfile";
+import Login from "../Pages/Login";
+import Explore from "../Pages/Explore";
 
 export default function RouteProvider() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/setprofile" element={<ProfileSetup />} />
+      <Route path="/setprofile" element={<SetProfile />} />
+      <Route path="/company/setprofile" element={<CompanySetProfile />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/explore" element={<Explore />} />
     </Routes>
   );
 }

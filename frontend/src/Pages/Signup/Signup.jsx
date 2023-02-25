@@ -1,6 +1,6 @@
 import React from "react";
-import LoginComp from "../../Components/Login/LoginComp";
+import LoginForm from "../../Components/LoginForm";
 
 export default function SignUp() {
-  return <LoginComp name="signup" />;
+  return <LoginForm name="signup" />;
 }

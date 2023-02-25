@@ -1,24 +1,28 @@
 import "./App.css";
-import { useMemo } from "react";
 import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Navbar from "./Components/Navbar/Navbar";
+import Navbar from "./Components/Navbar";
 import RouteProvider from "./Components/RouteProvider";
 import "react-image-crop/dist/ReactCrop.css";
 
 function App() {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: prefersDarkMode ? "dark" : "light",
-        },
-      }),
-    [prefersDarkMode]
-  );
+  const theme = createTheme({
+    palette: {
+      mode: "dark",
+      light: {
+        main: "#e3f2fd",
+      },
+    },
+    typography: {
+      fontFamily: ["Roboto Serif", "serif"].join(","),
+      button: {
+        textTransform: "none",
+      },
+      body2: {
+        fontFamily: "roboto",
+      },
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>

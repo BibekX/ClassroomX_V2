@@ -15,7 +15,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "react-router-dom";
 
-export default function LoginComp(props) {
+export default function LoginForm(props) {
   const [userType, setUserType] = useState("student");
 
   const handleChange = (event) => {
@@ -30,7 +30,7 @@ export default function LoginComp(props) {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 6,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
