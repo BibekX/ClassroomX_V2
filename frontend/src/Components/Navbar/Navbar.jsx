@@ -15,8 +15,8 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import appLogo from "../../../img/logo/logo.png";
-import { NavLink } from "react-router-dom";
+import appLogo from "../../img/logo/logo.png";
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -58,14 +58,14 @@ export default function Navbar() {
       <AppBar position="static" color="primary">
         <Container maxWidth="xxl">
           <Toolbar disableGutters>
-            <NavLink to="/">
+            <Link to="/">
               <Box
                 component="img"
                 sx={{ display: { xs: "none", md: "flex" }, mr: 1, width: 200 }}
                 src={appLogo}
                 alt="app_logo_md"
               />
-            </NavLink>
+            </Link>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -94,12 +94,12 @@ export default function Navbar() {
               >
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <NavLink
+                    <Link
                       to={`/${page.toLowerCase()}`}
                       style={{ textDecoration: "none", color: "#263238" }}
                     >
                       <Typography textAlign="center">{page}</Typography>
-                    </NavLink>
+                    </Link>
                   </MenuItem>
                 ))}
               </Menu>
@@ -118,7 +118,7 @@ export default function Navbar() {
                 textDecoration: "none",
               }}
             >
-              <NavLink to="/">
+              <Link to="/">
                 <Box
                   component="img"
                   sx={{
@@ -129,7 +129,7 @@ export default function Navbar() {
                   src={appLogo}
                   alt="app_logo_xs"
                 />
-              </NavLink>
+              </Link>
             </Typography>
             <Box
               sx={{
@@ -139,7 +139,7 @@ export default function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <NavLink
+                <Link
                   to={`/${page.toLowerCase()}`}
                   style={{ textDecoration: "none", color: "#263238" }}
                   key={page}
@@ -151,7 +151,7 @@ export default function Navbar() {
                   >
                     {page}
                   </Button>
-                </NavLink>
+                </Link>
               ))}
             </Box>
 
@@ -190,23 +190,31 @@ export default function Navbar() {
               </Box>
             ) : (
               <>
-                <NavLink to="/login" style={{ textDecoration: "none" }}>
+                <Link to="/login" style={{ textDecoration: "none" }}>
                   <Button
                     variant="outlined"
                     color="light"
-                    sx={{ marginRight: 1 }}
+                    sx={{
+                      marginRight: 1,
+                      border: "2px solid",
+                      fontWeight: "bold",
+                    }}
                   >
                     Login
                   </Button>
-                </NavLink>
-                <NavLink
+                </Link>
+                <Link
                   to="/signup"
                   style={{ textDecoration: "none", color: "#263238" }}
                 >
-                  <Button variant="contained" color="light">
-                    Signup
+                  <Button
+                    variant="contained"
+                    color="light"
+                    sx={{ fontWeight: "bold" }}
+                  >
+                    Sign Up
                   </Button>
-                </NavLink>
+                </Link>
               </>
             )}
           </Toolbar>

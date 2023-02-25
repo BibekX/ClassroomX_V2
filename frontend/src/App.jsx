@@ -1,18 +1,31 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./Components/General/Navbar/Navbar";
-import Login from "./Components/Pages/Login/Login";
-import Signup from "./Components/Pages/Signup/Signup";
+import { useMemo } from "react";
+import { CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Navbar from "./Components/Navbar/Navbar";
+import RouteProvider from "./Components/RouteProvider";
+import "react-image-crop/dist/ReactCrop.css";
 
 function App() {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? "dark" : "light",
+        },
+      }),
+    [prefersDarkMode]
+  );
+
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Navbar />
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </div>
+      <RouteProvider />
+    </ThemeProvider>
   );
 }
 
