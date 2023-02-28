@@ -3,7 +3,6 @@ import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Navbar from "./Components/Navbar";
 import RouteProvider from "./Components/RouteProvider";
-import "react-image-crop/dist/ReactCrop.css";
 
 function App() {
   const theme = createTheme({

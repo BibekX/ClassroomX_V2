@@ -7,23 +7,22 @@ import {
   CardActionArea,
 } from "@mui/material";
 
-export default function CardComp() {
+export default function CardComp(props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 340, width: "100%", mx: 4, my: 3 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image="https://i.imgur.com/m01Ytyw.pnghttps://i.imgur.com/m01Ytyw.png"
-          alt="green iguana"
+          height="220"
+          image={props.img}
+          alt={props.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {`${props.bio}`.slice(0, 250)}...
           </Typography>
         </CardContent>
       </CardActionArea>

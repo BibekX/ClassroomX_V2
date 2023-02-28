@@ -8,7 +8,7 @@ export default function Home() {
     <Container component="main">
       <Box
         sx={{
-          marginTop: 6,
+          mt: 6,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

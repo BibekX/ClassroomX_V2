@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, Box } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
+import CardComp from "../Components/CardForm";
 
 export default function Explore() {
   const [companies, setCompanies] = useState([
@@ -21,21 +22,45 @@ export default function Explore() {
     {
       id: 3,
       name: "Flatiron School",
-      bio: "Education should be the best investment you make in your future—and at Flatiron School, we’re committed to helping you learn the skills you need to change yours for the better. Online and on our campuses across the country, we provide the skills, community, and immersive, outcomes-driven curriculum you need to launch a career in software engineering, data science, or cybersecurity.",
+      bio: "Education should be the best investment you make in your future—and at Flatiron School, we're committed to helping you learn the skills you need to change yours for the better. Online and on our campuses across the country, we provide the skills, community, and immersive, outcomes-driven curriculum you need to launch a career in software engineering, data science, or cybersecurity.",
       picture: "https://i.imgur.com/GXXKQq5.png",
       url: "https://flatironschool.com/",
     },
   ]);
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xl">
       <Box
         sx={{
-          marginTop: 6,
+          mt: 6,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
-      ></Box>
+      >
+        <Typography variant="h3" textAlign={"center"}>
+          Let's Get Started, Toast
+        </Typography>
+        <Typography variant="h2" fontFamily="roboto" fontWeight={"bold"}>
+          Institutions
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            alignItems: "stretch",
+          }}
+        >
+          {companies.map((company) => (
+            <CardComp
+              key={company.id}
+              name={company.name}
+              bio={company.bio}
+              img={company.picture}
+            />
+          ))}
+        </Box>
+      </Box>
     </Container>
   );
 }

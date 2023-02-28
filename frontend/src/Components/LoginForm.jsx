@@ -30,7 +30,7 @@ export default function LoginForm(props) {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 6,
+          mt: 6,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
