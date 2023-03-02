@@ -14,8 +14,8 @@ export default function Hero(props) {
       >
         {props.name}
       </Typography>
-      <Grid container>
-        <Grid item lg={5} md={6} mb={4} sm={12} sx={{ textAlign: "center" }}>
+      <Grid>
+        <Grid item lg={5} md={6} sm={12} sx={{ textAlign: "center", mb: 4 }}>
           <Box
             component="img"
             src={props.picture}

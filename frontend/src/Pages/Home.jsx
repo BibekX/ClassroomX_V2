@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    // <Container component="main">
     <Box
       sx={{
         mt: 6,
@@ -37,6 +36,5 @@ export default function Home() {
       </Link>
       <Box component="img" src={HeroImg} sx={{ maxWidth: "90vw" }}></Box>
     </Box>
-    // </Container>
   );
 }
