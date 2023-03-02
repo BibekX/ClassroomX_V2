@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Box, Typography } from "@mui/material";
-import CardComp from "../Components/CardForm";
+import CardForm from "../Components/CardForm";
 
 export default function Explore() {
   const [companies, setCompanies] = useState([
@@ -28,39 +28,37 @@ export default function Explore() {
     },
   ]);
   return (
-    <Container component="main" maxWidth="xl">
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="h3" textAlign={"center"}>
+        Let's Get Started, Toast
+      </Typography>
+      <Typography variant="h2" sx={{ fontWeight: "bold", my: 4 }}>
+        Institutions
+      </Typography>
       <Box
         sx={{
-          mt: 6,
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          alignItems: "stretch",
         }}
       >
-        <Typography variant="h3" textAlign={"center"}>
-          Let's Get Started, Toast
-        </Typography>
-        <Typography variant="h2" fontFamily="roboto" fontWeight={"bold"}>
-          Institutions
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            alignItems: "stretch",
-          }}
-        >
-          {companies.map((company) => (
-            <CardComp
-              key={company.id}
-              name={company.name}
-              bio={company.bio}
-              img={company.picture}
-            />
-          ))}
-        </Box>
+        {companies.map((company) => (
+          <CardForm
+            key={company.id}
+            name={company.name}
+            bio={company.bio}
+            img={company.picture}
+            path="/institution"
+          />
+        ))}
       </Box>
-    </Container>
+    </Box>
   );
 }

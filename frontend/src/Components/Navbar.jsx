@@ -17,7 +17,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import appLogo from "../img/logo/logo.png";
 import { Link } from "react-router-dom";
 
-const pages = ["Explore", "Class", "Question"];
+const pages = ["Explore", "Class", "Questions"];
 const settings = ["Profile", "Account", "Settings", "Logout"];
 
 export default function Navbar() {

@@ -11,12 +11,14 @@ import {
   Select,
   Container,
   FormControl,
+  Link,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm(props) {
   const [userType, setUserType] = useState("student");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setUserType(event.target.value);
@@ -80,20 +82,18 @@ export default function LoginForm(props) {
             autoComplete="current-password"
           />
           {props.name === "signup" ? (
-            <Link
-              to={
-                userType === "company" ? "/company/setprofile" : "/setprofile"
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
+              onClick={() =>
+                navigate(
+                  userType === "company" ? "/company/setprofile" : "/setprofile"
+                )
               }
-              style={{ textDecoration: "none" }}
             >
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
-              >
-                Create Account
-              </Button>
-            </Link>
+              Create Account
+            </Button>
           ) : (
             <>
               <Button
@@ -108,21 +108,14 @@ export default function LoginForm(props) {
           <Grid container>
             <Grid item>
               <Link
-                to={`/${props.name === "signup" ? "login" : "signup"}`}
+                href=""
                 variant="body2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(`/${props.name === "signup" ? "login" : "signup"}`);
+                }}
               >
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: "#90CAF9",
-                    textDecoration: "underline",
-                    textDecorationColor: "rgba(255, 255, 255, 0.16)",
-                    ":hover": {
-                      textDecoration: "underline",
-                      textDecorationColor: "#90CAF9",
-                    },
-                  }}
-                >
+                <Typography variant="body2">
                   {props.name === "signup"
                     ? "Already have an account? Login"
                     : "Don't have an account? Sign Up"}

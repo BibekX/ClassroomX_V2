@@ -1,5 +1,5 @@
 import "./App.css";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Container } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Navbar from "./Components/Navbar";
 import RouteProvider from "./Components/RouteProvider";
@@ -13,9 +13,12 @@ function App() {
       },
     },
     typography: {
-      fontFamily: ["Roboto Serif", "serif"].join(","),
+      fontFamily: ["Golos Text", "serif"].join(","),
       button: {
         textTransform: "none",
+      },
+      body1: {
+        fontFamily: "roboto",
       },
       body2: {
         fontFamily: "roboto",
@@ -27,7 +30,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Navbar />
-      <RouteProvider />
+      <Container component="main" maxWidth="lg" sx={{ mt: 6 }}>
+        <RouteProvider />
+      </Container>
     </ThemeProvider>
   );
 }

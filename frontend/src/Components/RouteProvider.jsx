@@ -6,6 +6,9 @@ import SetProfile from "../Pages/Signup/SetProfile";
 import CompanySetProfile from "../Pages/Signup/CompanySetProfile";
 import Login from "../Pages/Login";
 import Explore from "../Pages/Explore";
+import Institution from "../Pages/Institution";
+import Course from "../Pages/Course";
+import Questions from "../Pages/Questions";
 
 export default function RouteProvider() {
   return (
@@ -16,6 +19,9 @@ export default function RouteProvider() {
       <Route path="/company/setprofile" element={<CompanySetProfile />} />
       <Route path="/login" element={<Login />} />
       <Route path="/explore" element={<Explore />} />
+      <Route path="/institution" element={<Institution />} />
+      <Route path="/institution/course" element={<Course />} />
+      <Route path="/questions" element={<Questions />} />
     </Routes>
   );
 }
