@@ -9,6 +9,7 @@ import Explore from "../Pages/Explore";
 import Institution from "../Pages/Institution";
 import Course from "../Pages/Course";
 import Questions from "../Pages/Questions";
+import AskQuestion from "../Pages/AskQuestion";
 
 export default function RouteProvider() {
   return (
@@ -22,6 +23,7 @@ export default function RouteProvider() {
       <Route path="/institution" element={<Institution />} />
       <Route path="/institution/course" element={<Course />} />
       <Route path="/questions" element={<Questions />} />
+      <Route path="/questions/ask" element={<AskQuestion />} />
     </Routes>
   );
 }

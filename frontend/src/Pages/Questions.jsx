@@ -10,9 +10,11 @@ import {
   InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { styled } from "@mui/material/styles";
+import Moment from "react-moment";
+import { useNavigate } from "react-router-dom";
 
 export default function Questions() {
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState([
     {
       id: 1,
@@ -21,9 +23,9 @@ export default function Questions() {
       votes: 10,
       answers: 5,
       tag: "javascript",
-      answered: false,
       userID: 1,
       username: "Kyle",
+      date: "2023-03-03T12:59-0500",
     },
     {
       id: 2,
@@ -32,9 +34,10 @@ export default function Questions() {
       text: "Lorem Ipsum",
       votes: 2,
       answers: 3,
-      answered: false,
       usersID: 1,
       tag: "python",
+      username: "Xavi",
+      date: "2023-02-19T12:59-0500",
     },
     {
       id: 3,
@@ -42,21 +45,14 @@ export default function Questions() {
         "How do I update the latest version of Curl on windows 2022 server",
       text: "Lorem Ipsum",
       votes: 1,
-      answered: false,
       answers: 0,
       usersID: 1,
       tag: "windows",
+      username: "Piccolo",
+      date: "2022-04-19T12:59-0500",
     },
   ]);
   const [search, setSearch] = useState("");
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    height: 60,
-    lineHeight: "60px",
-  }));
 
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -90,6 +86,7 @@ export default function Questions() {
         <Button
           variant="contained"
           sx={{ alignSelf: "flex-end", my: 2, fontWeight: "bold" }}
+          onClick={() => navigate("ask")}
         >
           Ask Question
         </Button>
@@ -104,7 +101,7 @@ export default function Questions() {
             : question.title.toLowerCase().includes(search.toLowerCase())
         )
         .map((question) => (
-          <Item
+          <Paper
             square
             key={question.id}
             elevation={24}
@@ -154,9 +151,15 @@ export default function Questions() {
                   </Button>
                 )}
                 <Typography
-                  sx={{ display: { sm: "inline", md: "none" }, mt: 1 }}
+                  sx={{ display: { xs: "inline-block", md: "none" }, mt: 1 }}
                 >
                   Votes: {question.votes} | Answers: {question.answers}
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 0.5 }}>
+                  <strong>{question.username} </strong> -{" "}
+                  <Moment fromNow style={{ color: "#A9A9A9" }}>
+                    {question.date}
+                  </Moment>
                 </Typography>
               </Grid>
               <Grid
@@ -173,7 +176,7 @@ export default function Questions() {
                 <Typography>Answers: {question.answers}</Typography>
               </Grid>
             </Grid>
-          </Item>
+          </Paper>
         ))}
     </Box>
   );
