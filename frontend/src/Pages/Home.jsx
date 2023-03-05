@@ -13,7 +13,14 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Typography variant="h2" sx={{ textAlign: "center", fontWeight: 600 }}>
+      <Typography
+        variant="h2"
+        sx={{
+          fontSize: { md: "60px", xs: "50px" },
+          textAlign: "center",
+          fontWeight: 600,
+        }}
+      >
         Online Education
         <br />
         is now easy

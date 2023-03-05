@@ -91,7 +91,10 @@ export default function Questions() {
           Ask Question
         </Button>
       </Box>
-      <Typography variant="h2" sx={{ fontWeight: "bold", my: 4 }}>
+      <Typography
+        variant="h2"
+        sx={{ fontSize: { md: "60px", xs: "50px" }, fontWeight: "bold", my: 4 }}
+      >
         Questions
       </Typography>
       {questions
@@ -106,8 +109,7 @@ export default function Questions() {
             key={question.id}
             elevation={24}
             sx={{
-              px: 2,
-              py: 2,
+              p: 2,
               mb: 0.2,
               width: "900px",
               maxWidth: "100%",
@@ -133,6 +135,10 @@ export default function Questions() {
                     ":hover": { color: "#2196f3" },
                     lineHeight: 1.3,
                   }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(`${question.id}`);
+                  }}
                 >
                   {question.title}
                 </Link>
@@ -156,7 +162,9 @@ export default function Questions() {
                   Votes: {question.votes} | Answers: {question.answers}
                 </Typography>
                 <Typography variant="body2" sx={{ mt: 0.5 }}>
-                  <strong>{question.username} </strong> -{" "}
+                  <strong style={{ color: "aqua" }}>
+                    {question.username}{" "}
+                  </strong>
                   <Moment fromNow style={{ color: "#A9A9A9" }}>
                     {question.date}
                   </Moment>

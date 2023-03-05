@@ -38,7 +38,10 @@ export default function Explore() {
       <Typography variant="h3" textAlign={"center"}>
         Let's Get Started, Toast
       </Typography>
-      <Typography variant="h2" sx={{ fontWeight: "bold", my: 4 }}>
+      <Typography
+        variant="h2"
+        sx={{ fontSize: { md: "60px", xs: "50px" }, fontWeight: "bold", my: 4 }}
+      >
         Institutions
       </Typography>
       <Box

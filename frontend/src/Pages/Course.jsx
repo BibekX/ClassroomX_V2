@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Hero from "../Components/Hero";
+import StickyHeadTable from "../Components/StickyHeadTable";
 
 export default function Course() {
   const [course, setCourse] = useState({
@@ -15,6 +16,18 @@ export default function Course() {
   return (
     <Box>
       <Hero {...course} />
+      <Typography
+        sx={{
+          fontSize: { md: "60px", xs: "50px" },
+          fontWeight: "bold",
+          textAlign: "center",
+          mt: 4,
+          mb: 2,
+        }}
+      >
+        Classes
+      </Typography>
+      <StickyHeadTable />
     </Box>
   );
 }

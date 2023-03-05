@@ -5,8 +5,9 @@ export default function Hero(props) {
   return (
     <Box>
       <Typography
-        variant="h3"
+        variant="h2"
         sx={{
+          fontSize: { md: "50px", xs: "40px" },
           textAlign: "center",
           mb: 4,
           fontWeight: 600,
@@ -14,27 +15,23 @@ export default function Hero(props) {
       >
         {props.name}
       </Typography>
-      <Grid>
-        <Grid item lg={5} md={6} sm={12} sx={{ textAlign: "center", mb: 4 }}>
-          <Box
-            component="img"
-            src={props.picture}
-            sx={{
-              maxWidth: "85%",
-              maxHeight: "300px",
-              border: "2px solid #00adb5",
-            }}
-          />
-        </Grid>
-        <Grid item lg={7} md={6} sm={12} px={1}>
-          <Typography variant="body1" sx={{ textAlign: "justify", mb: 2 }}>
-            {props.bio}
-          </Typography>
-          <Link href={props.url} target="_blank">
-            {props.url}
-          </Link>
-        </Grid>
-      </Grid>
+      <Box sx={{ textAlign: "center", mb: 4 }}>
+        <Box
+          component="img"
+          src={props.picture}
+          sx={{
+            maxWidth: "85%",
+            maxHeight: "300px",
+            border: "2px solid #00adb5",
+          }}
+        />
+      </Box>
+      <Typography variant="body1" sx={{ textAlign: "justify", mb: 2 }}>
+        {props.bio}
+      </Typography>
+      <Link href={props.url} target="_blank">
+        {props.url}
+      </Link>
     </Box>
   );
 }
