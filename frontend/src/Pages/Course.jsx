@@ -21,7 +21,7 @@ export default function Course() {
           fontSize: { md: "60px", xs: "50px" },
           fontWeight: "bold",
           textAlign: "center",
-          mt: 4,
+          mt: 6,
           mb: 2,
         }}
       >
