@@ -9,10 +9,30 @@ import {
   IconButton,
 } from "@mui/material";
 import DefaultProfile from "../../img/profile/default.png";
+import { useSelector, useDispatch } from "react-redux";
+import { setUpProfileThunk } from "../../redux/slice/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function SetProfile() {
+  const navigate = useNavigate();
+  const id = useSelector((store) => store.auth.user.id);
+  const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(DefaultProfile);
+  const [profile, setProfile] = useState({
+    id,
+    fname: "",
+    lname: "",
+    bio: "",
+  });
   const inputRef = useRef();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setProfile((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <Container component="main" maxWidth="sm">
@@ -34,8 +54,8 @@ export default function SetProfile() {
         <Link
           href="#"
           underline="none"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={(event) => {
+            event.preventDefault();
             inputRef.current.click();
           }}
         >
@@ -46,8 +66,16 @@ export default function SetProfile() {
           accept="image/*"
           hidden
           ref={inputRef}
-          onChange={(e) => {
-            setAvatar(URL.createObjectURL(e.target.files[0]));
+          onChange={(event) => {
+            setAvatar(URL.createObjectURL(event.target.files[0]));
+            const data = new FormData();
+            data.append("file", event.target.files[0]);
+            let extension = event.target.files[0].name.split(".")[1];
+            setProfile((prev) => ({
+              ...prev,
+              image: data,
+              extension,
+            }));
           }}
         />
         <TextField
@@ -57,6 +85,7 @@ export default function SetProfile() {
           id="fname"
           label="First Name"
           name="fname"
+          onChange={handleChange}
         />
         <TextField
           margin="normal"
@@ -65,6 +94,7 @@ export default function SetProfile() {
           id="lname"
           label="Last Name"
           name="lname"
+          onChange={handleChange}
         />
         <TextField
           margin="normal"
@@ -74,12 +104,17 @@ export default function SetProfile() {
           name="bio"
           multiline
           rows={7}
+          onChange={handleChange}
         />
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
+          onClick={() => {
+            console.log("profile", profile);
+            dispatch(setUpProfileThunk(profile)).then(() => navigate("/"));
+          }}
         >
           Setup Profile
         </Button>

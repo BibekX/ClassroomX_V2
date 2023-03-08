@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Box,
@@ -15,13 +14,17 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import appLogo from "../img/logo/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutThunk } from "../redux/slice/authSlice";
+import defaultAvatar from "../img/profile/default.png";
 
 const pages = ["Explore", "Class", "Question"];
-const settings = ["Profile", "Account", "Settings", "Logout"];
 
 export default function Navbar() {
-  const [auth, setAuth] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -124,7 +127,7 @@ export default function Navbar() {
             {pages.map((page) => (
               <Link
                 to={`/${page.toLowerCase()}`}
-                style={{ textDecoration: "none", color: "#263238" }}
+                style={{ textDecoration: "none" }}
                 key={page}
               >
                 <Button
@@ -144,11 +147,20 @@ export default function Navbar() {
             ))}
           </Box>
 
-          {auth ? (
+          {auth.isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar
+                    alt="profile"
+                    src={
+                      auth.user.img
+                        ? `${import.meta.env.VITE_BACKEND}/avatar/${
+                            auth.user.img
+                          }`
+                        : defaultAvatar
+                    }
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -167,11 +179,23 @@ export default function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem
+                  onClick={() => {
+                    navigate("/setprofile");
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    dispatch(logoutThunk());
+                    handleCloseUserMenu();
+                    navigate("/");
+                  }}
+                >
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           ) : (

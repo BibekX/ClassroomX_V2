@@ -55,7 +55,6 @@ export default function Questions() {
   const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setSearch(e.target.value);
   };
 

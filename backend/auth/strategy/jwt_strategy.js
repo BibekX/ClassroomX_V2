@@ -12,7 +12,9 @@ module.exports = (knex) => {
     async (payload, done) => {
       const currentDate = new Date().getTime();
       if (payload.exp > currentDate) {
-        const user = await knex(payload.userType).where({ id: payload.id });
+        const tableName =
+          payload.userType === "institution" ? "institution" : "users";
+        const user = await knex(tableName).where({ id: payload.id });
         if (user) return done(null, user);
         return done(null, false);
       } else {

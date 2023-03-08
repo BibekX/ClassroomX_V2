@@ -18,7 +18,7 @@ export default function RouteProvider() {
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/setprofile" element={<SetProfile />} />
-      <Route path="/company/setprofile" element={<CompanySetProfile />} />
+      <Route path="/institution/setprofile" element={<CompanySetProfile />} />
       <Route path="/login" element={<Login />} />
       <Route path="/explore" element={<Explore />} />
       <Route path="/institution" element={<Institution />} />

@@ -15,17 +15,33 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signupThunk, loginThunk } from "../redux/slice/authSlice";
 
 export default function LoginForm(props) {
   const [userType, setUserType] = useState("student");
-  const navigate = useNavigate();
+  const [credential, setCredential] = useState({ email: "", password: "" });
 
-  const handleChange = (event) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleTypeChange = (event) => {
     setUserType(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleCredentialChange = (event) => {
+    const { name, value } = event.target;
+    setCredential((prevValue) => ({ ...prevValue, [name]: value }));
+  };
+
+  const handleSignup = () => {
+    props.name === "signup"
+      ? dispatch(signupThunk({ ...credential, userType })).then(() =>
+          userType === "institution"
+            ? navigate("/institution/setprofile")
+            : navigate("/setprofile")
+        )
+      : dispatch(loginThunk(credential));
   };
 
   return (
@@ -44,7 +60,7 @@ export default function LoginForm(props) {
         <Typography variant="h5">
           {props.name === "signup" ? "Sign Up" : "Login"}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
           {props.name === "signup" && (
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
@@ -52,11 +68,11 @@ export default function LoginForm(props) {
                 <Select
                   value={userType}
                   label="User Type"
-                  onChange={handleChange}
+                  onChange={handleTypeChange}
                 >
                   <MenuItem value="student">Student</MenuItem>
                   <MenuItem value="teacher">Teacher</MenuItem>
-                  <MenuItem value="company">Company</MenuItem>
+                  <MenuItem value="institution">Institution</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -70,6 +86,7 @@ export default function LoginForm(props) {
             label="Email Address"
             name="email"
             autoComplete="email"
+            onChange={handleCredentialChange}
           />
           <TextField
             margin="normal"
@@ -80,38 +97,23 @@ export default function LoginForm(props) {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleCredentialChange}
           />
-          {props.name === "signup" ? (
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
-              onClick={() =>
-                navigate(
-                  userType === "company" ? "/company/setprofile" : "/setprofile"
-                )
-              }
-            >
-              Create Account
-            </Button>
-          ) : (
-            <>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
-              >
-                Login
-              </Button>
-            </>
-          )}
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
+            onClick={handleSignup}
+          >
+            {props.name === "signup" ? "Create Account" : "Login"}
+          </Button>
           <Grid container>
             <Grid item>
               <Link
                 href=""
                 variant="body2"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={(event) => {
+                  event.preventDefault();
                   navigate(`/${props.name === "signup" ? "login" : "signup"}`);
                 }}
               >
