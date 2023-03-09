@@ -1,28 +1,30 @@
 import React, { useState, useRef } from "react";
 import {
   Container,
-  Avatar,
   Box,
   TextField,
   Button,
   Link,
   IconButton,
+  CardMedia,
 } from "@mui/material";
-import DefaultProfile from "../../img/profile/default.png";
+import Banner from "../../img/profile/banner.jpg";
 import { useSelector, useDispatch } from "react-redux";
-import { setUpProfileThunk } from "../../redux/profilethunk";
+import { updateInstitutionProfileThunk } from "../../redux/profilethunk";
 import { useNavigate } from "react-router-dom";
 
-export default function SetProfile() {
+export default function InstitutionProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inputRef = useRef();
-  const id = useSelector((store) => store.auth.user.id);
-  const [avatar, setAvatar] = useState(DefaultProfile);
+  const auth = useSelector((store) => store.auth);
+  const [banner, setBanner] = useState(
+    `${import.meta.env.VITE_BACKEND}/institution/avatar/${auth.user.id}`
+  );
   const [profile, setProfile] = useState({
-    user_id: id,
-    fname: "",
-    lname: "",
+    institution_id: auth.user.id,
+    name: "",
+    url: "",
     bio: "",
   });
 
@@ -35,7 +37,7 @@ export default function SetProfile() {
   };
 
   const handleImageChange = (event) => {
-    setAvatar(URL.createObjectURL(event.target.files[0]));
+    setBanner(URL.createObjectURL(event.target.files[0]));
     const data = new FormData();
     data.append("file", event.target.files[0]);
     let extension = event.target.files[0].name.split(".")[1];
@@ -61,17 +63,22 @@ export default function SetProfile() {
             inputRef.current.click();
           }}
         >
-          <Avatar alt="profile" src={avatar} sx={{ width: 150, height: 150 }} />
+          <CardMedia
+            component="img"
+            sx={{ height: 200, maxWidth: 350 }}
+            image={banner}
+            alt="company banner"
+          />
         </IconButton>
         <Link
           href="#"
           underline="none"
-          onClick={(event) => {
-            event.preventDefault();
+          onClick={(e) => {
+            e.preventDefault();
             inputRef.current.click();
           }}
         >
-          Add Photo
+          Add Company Banner
         </Link>
         <input
           type="file"
@@ -84,27 +91,27 @@ export default function SetProfile() {
           margin="normal"
           required
           fullWidth
-          id="fname"
-          label="First Name"
-          name="fname"
-          value={profile.fname}
+          id="name"
+          label="Company Name"
+          name="name"
+          value={profile.name}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          id="url"
+          label="Website URL"
+          name="url"
+          value={profile.url}
           onChange={handleChange}
         />
         <TextField
           margin="normal"
           required
           fullWidth
-          id="lname"
-          label="Last Name"
-          name="lname"
-          value={profile.lname}
-          onChange={handleChange}
-        />
-        <TextField
-          margin="normal"
-          fullWidth
           id="bio"
-          label="Tell me something about yourself..."
+          label="Company Overview"
           name="bio"
           multiline
           rows={7}
@@ -117,7 +124,9 @@ export default function SetProfile() {
           variant="contained"
           sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
           onClick={() => {
-            dispatch(setUpProfileThunk(profile)).then(() => navigate("/"));
+            dispatch(updateInstitutionProfileThunk(profile)).then(() =>
+              navigate("/")
+            );
           }}
         >
           Setup Profile

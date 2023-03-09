@@ -7,7 +7,7 @@ exports.up = function (knex) {
     table.increments();
     table.string("email").unique();
     table.string("password");
-    table.string("user_type");
+    table.string("role");
   });
 };
 

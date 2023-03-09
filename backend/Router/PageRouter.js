@@ -1,15 +1,13 @@
-const path = require("path");
 class PageRouter {
-  constructor(express, authenticate, knex, fs) {
+  constructor(express, authenticate, knex) {
     this.express = express;
     this.authenticate = authenticate;
     this.knex = knex;
-    this.fs = fs;
   }
 
   router() {
     const router = this.express.Router();
-    router.get("/avatar/:name", this.getAvatar.bind(this));
+
     router.get(
       "/institution",
       this.authenticate(),
@@ -31,15 +29,6 @@ class PageRouter {
       this.getOneCourse.bind(this)
     );
     return router;
-  }
-
-  async getAvatar(req, res) {
-    const directory = path.join(__dirname + "/../image/user/profile/");
-    if (this.fs.existsSync(directory + req.params.name)) {
-      res.sendFile(directory + req.params.name);
-    } else {
-      res.sendFile(directory + "default.png");
-    }
   }
 
   async getInstitutions(req, res) {

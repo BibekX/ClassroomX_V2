@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutThunk } from "../redux/slice/authSlice";
 import defaultAvatar from "../img/profile/default.png";
+import axios from "axios";
 
 const pages = ["Explore", "Class", "Question"];
 
@@ -154,11 +155,13 @@ export default function Navbar() {
                   <Avatar
                     alt="profile"
                     src={
-                      auth.user.img
-                        ? `${import.meta.env.VITE_BACKEND}/avatar/${
-                            auth.user.img
+                      auth.user.role === "institution"
+                        ? `${import.meta.env.VITE_BACKEND}/institution/avatar/${
+                            auth.user.id
                           }`
-                        : defaultAvatar
+                        : `${import.meta.env.VITE_BACKEND}/avatar/${
+                            auth.user.id
+                          }`
                     }
                   />
                 </IconButton>
@@ -181,7 +184,9 @@ export default function Navbar() {
               >
                 <MenuItem
                   onClick={() => {
-                    navigate("/setprofile");
+                    auth.user.role === "institution"
+                      ? navigate("/institution/profile")
+                      : navigate("/profile");
                     handleCloseUserMenu();
                   }}
                 >

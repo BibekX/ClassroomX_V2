@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Container,
   Avatar,
@@ -10,21 +10,34 @@ import {
 } from "@mui/material";
 import DefaultProfile from "../../img/profile/default.png";
 import { useSelector, useDispatch } from "react-redux";
-import { setUpProfileThunk } from "../../redux/profilethunk";
+import { updateProfileThunk } from "../../redux/profilethunk";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function SetProfile() {
+export default function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inputRef = useRef();
-  const id = useSelector((store) => store.auth.user.id);
-  const [avatar, setAvatar] = useState(DefaultProfile);
+  const auth = useSelector((store) => store.auth);
+
+  const [avatar, setAvatar] = useState(
+    `${import.meta.env.VITE_BACKEND}/avatar/${auth.user.id}`
+  );
   const [profile, setProfile] = useState({
-    user_id: id,
+    user_id: auth.user.id,
     fname: "",
     lname: "",
     bio: "",
   });
+
+  useEffect(() => {
+    axios(`${import.meta.env.VITE_BACKEND}/profileinfo/${auth.user.id}`).then(
+      (res) => {
+        const { fname, lname, bio } = res.data;
+        setProfile((prevValue) => ({ ...prevValue, fname, lname, bio }));
+      }
+    );
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -71,7 +84,7 @@ export default function SetProfile() {
             inputRef.current.click();
           }}
         >
-          Add Photo
+          Update Photo
         </Link>
         <input
           type="file"
@@ -117,10 +130,10 @@ export default function SetProfile() {
           variant="contained"
           sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
           onClick={() => {
-            dispatch(setUpProfileThunk(profile)).then(() => navigate("/"));
+            dispatch(updateProfileThunk(profile)).then(() => navigate("/"));
           }}
         >
-          Setup Profile
+          Update Profile
         </Button>
       </Box>
     </Container>

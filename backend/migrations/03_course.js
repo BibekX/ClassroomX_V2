@@ -6,7 +6,7 @@ exports.up = function (knex) {
   return knex.schema.createTable("course", (table) => {
     table.increments();
     table.integer("institution_id");
-    table.foreign("institution_id").references("institution.id");
+    table.foreign("institution_id").references("users.id");
     table.string("name");
     table.string("bio");
     table.string("url");

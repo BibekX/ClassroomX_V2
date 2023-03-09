@@ -19,14 +19,14 @@ import { useDispatch } from "react-redux";
 import { signupThunk, loginThunk } from "../redux/slice/authSlice";
 
 export default function LoginForm(props) {
-  const [userType, setUserType] = useState("student");
+  const [role, setRole] = useState("student");
   const [credential, setCredential] = useState({ email: "", password: "" });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleTypeChange = (event) => {
-    setUserType(event.target.value);
+    setRole(event.target.value);
   };
 
   const handleCredentialChange = (event) => {
@@ -36,8 +36,8 @@ export default function LoginForm(props) {
 
   const handleSignup = () => {
     props.name === "signup"
-      ? dispatch(signupThunk({ ...credential, userType })).then(() =>
-          userType === "institution"
+      ? dispatch(signupThunk({ ...credential, role })).then(() =>
+          role === "institution"
             ? navigate("/institution/setprofile")
             : navigate("/setprofile")
         )
@@ -66,7 +66,7 @@ export default function LoginForm(props) {
               <FormControl fullWidth>
                 <InputLabel>User Type</InputLabel>
                 <Select
-                  value={userType}
+                  value={role}
                   label="User Type"
                   onChange={handleTypeChange}
                 >

@@ -9,10 +9,42 @@ import {
   CardMedia,
 } from "@mui/material";
 import Banner from "../../img/profile/banner.jpg";
+import { useSelector, useDispatch } from "react-redux";
+import { setUpInstitutionProfileThunk } from "../../redux/profilethunk";
+import { useNavigate } from "react-router-dom";
 
-export default function CompanySetProfile() {
-  const [avatar, setAvatar] = useState(Banner);
+export default function InstitutionSetProfile() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const inputRef = useRef();
+  const id = useSelector((store) => store.auth.user.id);
+  const [banner, setBanner] = useState(Banner);
+  const [profile, setProfile] = useState({
+    user_id: id,
+    name: "",
+    url: "",
+    bio: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setProfile((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (event) => {
+    setBanner(URL.createObjectURL(event.target.files[0]));
+    const data = new FormData();
+    data.append("file", event.target.files[0]);
+    let extension = event.target.files[0].name.split(".")[1];
+    setProfile((prev) => ({
+      ...prev,
+      image: data,
+      extension,
+    }));
+  };
 
   return (
     <Container component="main" maxWidth="sm">
@@ -32,7 +64,7 @@ export default function CompanySetProfile() {
           <CardMedia
             component="img"
             sx={{ height: 200, maxWidth: 350 }}
-            image={avatar}
+            image={banner}
             alt="company banner"
           />
         </IconButton>
@@ -51,9 +83,7 @@ export default function CompanySetProfile() {
           accept="image/*"
           hidden
           ref={inputRef}
-          onChange={(e) => {
-            setAvatar(URL.createObjectURL(e.target.files[0]));
-          }}
+          onChange={handleImageChange}
         />
         <TextField
           margin="normal"
@@ -62,6 +92,8 @@ export default function CompanySetProfile() {
           id="name"
           label="Company Name"
           name="name"
+          value={profile.name}
+          onChange={handleChange}
         />
         <TextField
           margin="normal"
@@ -69,6 +101,8 @@ export default function CompanySetProfile() {
           id="url"
           label="Website URL"
           name="url"
+          value={profile.url}
+          onChange={handleChange}
         />
         <TextField
           margin="normal"
@@ -79,12 +113,19 @@ export default function CompanySetProfile() {
           name="bio"
           multiline
           rows={7}
+          value={profile.bio}
+          onChange={handleChange}
         />
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2, fontWeight: "bold" }}
+          onClick={() => {
+            dispatch(setUpInstitutionProfileThunk(profile)).then(() =>
+              navigate("/")
+            );
+          }}
         >
           Setup Profile
         </Button>

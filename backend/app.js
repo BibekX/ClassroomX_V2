@@ -1,7 +1,6 @@
 //Require modules
 //NPM modules
 require("dotenv").config();
-const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 const knexFile = require("./knexfile").development;
@@ -12,8 +11,9 @@ const fileUpload = require("express-fileupload");
 
 //Local modules
 const jwtAuth = require("./auth/strategy/jwt_strategy")(knex);
-const PageRouter = require("./Router/PageRouter");
 const AuthRouter = require("./Router/AuthRouter");
+const PageRouter = require("./Router/PageRouter");
+const ProfileRouter = require("./Router/ProfileRouter");
 
 //Port Number
 const port = 8000;
@@ -27,7 +27,8 @@ app.use(fileUpload());
 jwtAuth.initialize();
 
 //Set up Router
-app.use("/", new PageRouter(express, jwtAuth.authenticate, knex, fs).router());
-app.use("/auth", new AuthRouter(express, knex, bcrypt, jwt, fs).router());
+app.use("/auth", new AuthRouter(express, knex, bcrypt, jwt).router());
+app.use("/", new ProfileRouter(express, jwtAuth.authenticate, knex).router());
+app.use("/", new PageRouter(express, jwtAuth.authenticate, knex).router());
 
 app.listen(port, () => console.log(`Listening to port ${port}`));
