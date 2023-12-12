@@ -24,7 +24,9 @@ export const setUpProfileThunk =
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
         }
-      );
+      ).then((res) => {
+        console.log('res', res);
+      });
     } else {
       await axios.post(
         `${import.meta.env.VITE_BACKEND}/setprofile`,
@@ -42,14 +44,14 @@ export const setUpProfileThunk =
   };
 
 export const setUpInstitutionProfileThunk =
-  ({ user_id, name, url, bio, image, extension }) =>
+  ({ institution_id, name, url, bio, image, extension }) =>
   async () => {
     if (image) {
-      let img_name = `${user_id}_${new Date().getTime()}.${extension}`;
+      let img_name = `${institution_id}_${new Date().getTime()}.${extension}`;
       await axios.post(
         `${import.meta.env.VITE_BACKEND}/institution/setprofile`,
         {
-          institution_id: user_id,
+          institution_id,
           name,
           url,
           bio,
@@ -70,7 +72,7 @@ export const setUpInstitutionProfileThunk =
       await axios.post(
         `${import.meta.env.VITE_BACKEND}/institution/setprofile`,
         {
-          institution_id: user_id,
+          institution_id,
           name,
           url,
           bio,
@@ -130,7 +132,7 @@ export const updateInstitutionProfileThunk =
   ({ institution_id, name, url, bio, image, extension }) =>
   async () => {
     if (image) {
-      let img_name = `${user_id}_${new Date().getTime()}.${extension}`;
+      let img_name = `${institution_id}_${new Date().getTime()}.${extension}`;
       await axios.delete(
         `${import.meta.env.VITE_BACKEND}/institution/avatar/${institution_id}`,
         {

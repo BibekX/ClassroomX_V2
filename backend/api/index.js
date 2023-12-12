@@ -3,17 +3,17 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const knexFile = require("./knexfile").development;
+const knexFile = require("../knexfile").development;
 const knex = require("knex")(knexFile);
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const fileUpload = require("express-fileupload");
 
 //Local modules
-const jwtAuth = require("./auth/strategy/jwt_strategy")(knex);
-const AuthRouter = require("./Router/AuthRouter");
-const PageRouter = require("./Router/PageRouter");
-const ProfileRouter = require("./Router/ProfileRouter");
+const jwtAuth = require("../auth/strategy/jwt_strategy")(knex);
+const AuthRouter = require("../Router/AuthRouter");
+const PageRouter = require("../Router/PageRouter");
+const ProfileRouter = require("../Router/ProfileRouter");
 
 //Port Number
 const port = 8000;

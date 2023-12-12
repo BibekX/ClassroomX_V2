@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Container,
   Box,
@@ -12,12 +12,14 @@ import Banner from "../../img/profile/banner.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import { updateInstitutionProfileThunk } from "../../redux/profilethunk";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function InstitutionProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inputRef = useRef();
   const auth = useSelector((store) => store.auth);
+  
   const [banner, setBanner] = useState(
     `${import.meta.env.VITE_BACKEND}/institution/avatar/${auth.user.id}`
   );
@@ -27,6 +29,15 @@ export default function InstitutionProfile() {
     url: "",
     bio: "",
   });
+
+  useEffect(() => {
+    axios(`${import.meta.env.VITE_BACKEND}/institution/profileinfo/${auth.user.id}`).then(
+      (res) => {
+        const { name, url, bio } = res.data;
+        setProfile((prevValue) => ({ ...prevValue, name, url, bio }));
+      }
+    );
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

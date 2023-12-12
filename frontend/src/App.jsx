@@ -17,12 +17,6 @@ function App() {
       button: {
         textTransform: "none",
       },
-      body1: {
-        fontFamily: "roboto",
-      },
-      body2: {
-        fontFamily: "roboto",
-      },
     },
   });
 

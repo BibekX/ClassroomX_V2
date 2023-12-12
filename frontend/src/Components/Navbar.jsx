@@ -26,6 +26,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((store) => store.auth);
+  console.log('auth', auth);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -152,18 +153,14 @@ export default function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="profile"
-                    src={
-                      auth.user.role === "institution"
-                        ? `${import.meta.env.VITE_BACKEND}/institution/avatar/${
-                            auth.user.id
-                          }`
-                        : `${import.meta.env.VITE_BACKEND}/avatar/${
-                            auth.user.id
-                          }`
-                    }
-                  />
+                <Avatar
+  alt="profile"
+  src={
+    auth.user.role === "institution"
+      ? `${import.meta.env.VITE_BACKEND}/institution/avatar/${auth.user.id}?${Date.now()}`
+      : `${import.meta.env.VITE_BACKEND}/avatar/${auth.user.id}?${Date.now()}`
+  }
+/>
                 </IconButton>
               </Tooltip>
               <Menu

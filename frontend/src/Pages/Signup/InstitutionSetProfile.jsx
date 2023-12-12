@@ -20,7 +20,7 @@ export default function InstitutionSetProfile() {
   const id = useSelector((store) => store.auth.user.id);
   const [banner, setBanner] = useState(Banner);
   const [profile, setProfile] = useState({
-    user_id: id,
+    institution_id: id,
     name: "",
     url: "",
     bio: "",

@@ -41,7 +41,7 @@ export default function LoginForm(props) {
             ? navigate("/institution/setprofile")
             : navigate("/setprofile")
         )
-      : dispatch(loginThunk(credential));
+      : dispatch(loginThunk(credential)).then(() => navigate("/"));
   };
 
   return (
@@ -61,7 +61,6 @@ export default function LoginForm(props) {
           {props.name === "signup" ? "Sign Up" : "Login"}
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
-          {props.name === "signup" && (
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel>User Type</InputLabel>
@@ -71,12 +70,11 @@ export default function LoginForm(props) {
                   onChange={handleTypeChange}
                 >
                   <MenuItem value="student">Student</MenuItem>
-                  <MenuItem value="teacher">Teacher</MenuItem>
+                  {/* <MenuItem value="teacher">Teacher</MenuItem> */}
                   <MenuItem value="institution">Institution</MenuItem>
                 </Select>
               </FormControl>
             </Box>
-          )}
 
           <TextField
             margin="normal"

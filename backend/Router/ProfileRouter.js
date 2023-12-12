@@ -14,6 +14,7 @@ class PageRouter {
     router.get("/avatar/:id", this.getAvatar.bind(this));
     router.get("/institution/avatar/:id", this.getInstitutionAvatar.bind(this));
     router.get("/profileinfo/:id", this.getProfileInfo.bind(this));
+    router.get("/institution/profileinfo/:id", this.getInstitutionProfileInfo.bind(this));
 
     //Post
     router.post("/setprofile", this.authenticate(), this.setProfile.bind(this));
@@ -92,6 +93,16 @@ class PageRouter {
       .select("fname", "lname", "bio")
       .where({
         user_id: req.params.id,
+      })
+      .first();
+    res.json(query);
+  }
+
+  async getInstitutionProfileInfo(req, res) {
+    let query = await this.knex("institution_profile")
+      .select("name", "url", "bio")
+      .where({
+        institution_id: req.params.id,
       })
       .first();
     res.json(query);
